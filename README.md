@@ -89,9 +89,19 @@ Codebuilder Discord Bot:
 **Invite Link:** https://discord.com/api/oauth2/authorize?client_id=787535889135828994&permissions=125952&scope=bot
 
 Commands:
-    - `c!gen \[Name] \[Preset]` - `c!gen example 1`
+
+    - `c!about` - About Me
+
+    - `c!ays' - As you should 😌
+
+    - `c!customQ` - Lists possible question types for `c!genCustom`.
+   
+    - `c!fetch \[Name]` - `c!fetch example` - Fetches a test with a given name.
+
+    - `c!gen \[Name] \[Preset]` - `c!gen example 1` - Generates a test with a given preset.
     
-    - `c!genCustom \[Name] \[Custom Question List]` - `c!gen example "1 2,3 1,8 0"
+    - `c!genCustom \[Name] \[Custom Question List]` - `c!gen example "1 2,3 1,8 0" - Generates a test with a list of question types.
     
-    - `c!fetch \[Name]` - `c!fetch example`
-    - 
+    - `c!presets` - Lists possible presets for `c!gen`.
+    
+    - `c!washed` - Washed
