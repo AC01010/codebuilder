@@ -703,4 +703,8 @@ async def about(ctx):
 async def presets(ctx):
     await ctx.send("```1\tAll Types - 29 Questions + Timed - Includes one of each cipher type.\n2\tNational Level Test - 30 Questions + Timed - National Level test, with random modes of questions.\n3\tRegional Level Test - 19 Questions + Timed - Regional level test, with random modes of questions.\n4\tAristo Spam - 10 Questions + Timed - 10 Unhinted Aristocrats.\n5\tPatristo Spam - 10 Questions + Timed - 10 Unhinted Patristocrats.```")
 
+@bot.command(name='ping')
+async def ping(ctx):
+     await ctx.send(f'Pong!')
+     
 bot.run(TOKEN)
