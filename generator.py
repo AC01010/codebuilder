@@ -1,3 +1,4 @@
+import logging
 import os
 import sympy
 import json
@@ -607,7 +608,7 @@ def genTest(na, preset):
             test["CIPHER."+str(i+1)]=genRandMorbit(i, q[i], question[1])
         if int(question[0])==12:
             test["CIPHER."+str(i+1)]=genRandPollux(i, q[i], question[1])
-    file = open("/Tests/"+na+".json", "w")
+    file = open("CodeTests/"+na+".json", "w")
     file.write(json.dumps(test))
     file.close()
     return json.dumps(test)
@@ -620,34 +621,46 @@ client = discord.Client()
 @bot.command(name='gen')
 async def gen(ctx, name, pre):
     try:
-        genTest(name, pre)
-        area=ctx.message.channel
-        with open("/Tests/"+name+".json", "r") as f:
-            await ctx.send(file=File(f,"/Tests/"+name+".json"))
+        if "." not in name and "/" not in name and name!="spanish":
+            genTest(name, pre)
+            area=ctx.message.channel
+            with open("CodeTests/"+name+".json", "r") as f:
+                await ctx.send(file=File(f,name+".json"))
+        else:
+            await ctx.send("Sorry, try again.")
     except:
         await ctx.send("Try `c!gen [name] [preset]`!")
+        print(logging.exception(""))
 
 @bot.command(name='genCustom')
 async def genCustom(ctx, name, pre):
     try:
-        pre = pre.split(",")
-        genTest(name, pre)
-        area=ctx.message.channel
-        with open("/Tests/"+name+".json", "r") as f:
-            await ctx.send(file=File(f,"/Tests/"+name+".json"))
+        if "." not in name and "/" not in name and name!="spanish":
+            pre = list(pre.split(","))
+            genTest(name, pre)
+            area=ctx.message.channel
+            with open("CodeTests/"+name+".json", "r") as f:
+                await ctx.send(file=File(f,name+".json"))
+        else:
+            await ctx.send("Sorry, try again.")
     except:
         await ctx.send("Try `c!genCustom [name] [custom list]`!")
+        print(logging.exception(""))
 
 @bot.command(name='fetch')
 async def fetch(ctx, name):
     try:
-        area=ctx.message.channel
-        with open("/Tests/"+name+".json", "r") as f:
-            await ctx.send(file=File(f,"/Tests/"+name+".json"))
+        if "." not in name and "/" not in name and name!="spanish":
+            area=ctx.message.channel
+            with open("CodeTests/"+name+".json", "r") as f:
+                await ctx.send(file=File(f,name+".json"))
+        else:
+            await ctx.send("Sorry, try again.")
     except (FileNotFoundError):
         await ctx.send("Sorry, I wasn't able to find the file.")
     except:
         await ctx.send("Try `c!fetch [name]`!")
+        print(logging.exception(""))
 
 @bot.command(name='customQ')
 async def customQ(ctx):
@@ -661,15 +674,37 @@ async def fuckyou(ctx):
 async def ays(ctx):
     if ctx.message.author.id == 357337245318905856 or ctx.message.author.id == 562760141141966879:
         await ctx.send("as you should :relieved:")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
 
 @bot.command(name='washed')
 async def washed(ctx, name):
-    await ctx.send("you're fucking washed "+name+" :unamused:")
-    
+    if "<@" not in name and "<#" not in name and "```" not in name:
+        await ctx.send("you're fucking washed "+name+" :unamused:")
+
 @bot.command(name='servers')
 async def servers(ctx):
-    servers = list(bot.guilds)
-    print('\n'.join(server.name for server in servers))
+    if ctx.message.author.id == 241029640469217281 or ctx.message.author.id == 357337245318905856:
+        servers = list(bot.guilds)
+        print('\n'.join(server.name for server in servers))
+        a = ""
+        for server in servers:
+             if "<@" not in server.name and "<#" not in server.name and "```" not in server.name:
+                 a+=(server.name+"\n")
+        await ctx.send("```\n"+a+"```")	
+    else:
+        await ctx.send("You don't have permissions to use this command.")
 
+@bot.command(name='about')
+async def about(ctx):
+    await ctx.send("Hi! I was made by Allen Chang. If you want to see my source code, see https://github.com/AC01010/codebuilder.")	
+
+@bot.command(name='presets')
+async def presets(ctx):
+    await ctx.send("```1\tAll Types - 29 Questions + Timed - Includes one of each cipher type.\n2\tNational Level Test - 30 Questions + Timed - National Level test, with random modes of questions.\n3\tRegional Level Test - 19 Questions + Timed - Regional level test, with random modes of questions.\n4\tAristo Spam - 10 Questions + Timed - 10 Unhinted Aristocrats.\n5\tPatristo Spam - 10 Questions + Timed - 10 Unhinted Patristocrats.```")
+
+@bot.command(name='ping')
+async def ping(ctx):
+     await ctx.send(f'Pong!')
+     
 bot.run(TOKEN)
-#genTest()
