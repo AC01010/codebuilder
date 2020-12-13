@@ -90,6 +90,8 @@ Codebuilder Discord Bot:
 
 Commands:
     - `c!gen \[Name] \[Preset]` - `c!gen example 1`
+    
     - `c!genCustom \[Name] \[Custom Question List]` - `c!gen example "1 2,3 1,8 0"
+    
     - `c!fetch \[Name]` - `c!fetch example`
     - 
