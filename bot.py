@@ -618,7 +618,7 @@ TOKEN = open("token",'r').read()
 bot = commands.Bot(command_prefix='c!')
 client = discord.Client()
 
-@bot.command(name='gen', help='Generates a test. Input the name of the test as well as a preset. See `c!presets` for more info.\n`c!gen Example 1`)
+@bot.command(name='gen', help='Generates a test. Input the name of the test as well as a preset. See `c!presets` for more info.\n`c!gen Example 1`')
 async def gen(ctx, name, pre):
     try:
         if "." not in name and "/" not in name and name!="spanish":
@@ -632,7 +632,7 @@ async def gen(ctx, name, pre):
         await ctx.send("Try `c!gen [name] [preset]`!")
         print(logging.exception(""))
 
-@bot.command(name='genCustom', help='Generates a test. Input the name of the test as well as a list of questions. See `c!customQ` for more info.\n`c!gen Example "1 2,1 2,2 2,6 D"`))
+@bot.command(name='genCustom', help='Generates a test. Input the name of the test as well as a list of questions. See `c!customQ` for more info.\n`c!gen Example "1 2,1 2,2 2,6 D"`'))
 async def genCustom(ctx, name, pre):
     try:
         if "." not in name and "/" not in name and name!="spanish":
