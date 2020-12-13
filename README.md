@@ -84,3 +84,12 @@ Currently, there are four presets:
     - 10 Unhinted Patristocrats
     
 6.  **Custom** - Custom made test.
+
+Codebuilder Discord Bot:
+**Invite Link:** https://discord.com/api/oauth2/authorize?client_id=787535889135828994&permissions=125952&scope=bot
+
+Commands:
+    - `c!gen \[Name] \[Preset]` - `c!gen example 1`
+    - `c!genCustom \[Name] \[Custom Question List]` - `c!gen example "1 2,3 1,8 0"
+    - `c!fetch \[Name]` - `c!fetch example`
+    - 
