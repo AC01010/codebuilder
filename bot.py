@@ -618,6 +618,81 @@ TOKEN = open("token",'r').read()
 bot = commands.Bot(command_prefix='c!')
 client = discord.Client()
 
+def isAllen(s):
+    if s==357337245318905856:
+        return True
+    return False
+
+with open("admin.txt") as f:
+    a = f.readlines()
+admin_list = [int(x.strip()) for x in a]
+print(admin_list)
+
+with open("secret.txt") as f:
+    a = f.readlines()
+secret_list = [int(x.strip()) for x in a]
+print(secret_list)
+
+@bot.command(name='addAdmin', hidden=True)
+async def addAdmin(ctx,user):
+    if isAllen(ctx.message.author.id):
+        if user not in admin_list:
+            admin_list.append(int(user))
+            f = open("admin.txt","w")
+            for user in admin_list:
+                f.write(str(user)+"\n")
+            f.close()
+            await ctx.send("Successfully added <@"+str(user)+"> to the admin list.")
+        else:
+            await ctx.send("<@"+str(user)+"> is already in the admin list.")
+    else:
+        await ctx.send("You don't have permissions to use this command.")        
+
+@bot.command(name='addSecret', hidden=True)
+async def addSecret(ctx,user):
+    if isAllen(ctx.message.author.id):
+        if user not in secret_list:
+            secret_list.append(int(user))
+            f = open("secret.txt","w")
+            for user in secret_list:
+                f.write(str(user)+"\n")
+            f.close()
+            await ctx.send("Successfully added <@"+str(user)+"> to the secret list.")
+        else:
+            await ctx.send("<@"+str(user)+"> is already in the secret list.")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='removeAdmin', hidden=True)
+async def removeAdmin(ctx,user):
+    if isAllen(ctx.message.author.id):
+        if int(user) in admin_list:
+            admin_list.remove(int(user))
+            f = open("admin.txt","w")
+            for i in admin_list:
+                f.write(str(i)+"\n")
+            f.close()
+            await ctx.send("Successfully removed <@"+str(user)+"> from the admin list.")
+        else:
+            await ctx.send("<@"+str(user)+"> is not in the admin list.")
+    else:
+        await ctx.send("You don't have permissions to use this command.")        
+
+@bot.command(name='removeSecret', hidden=True)
+async def removeSecret(ctx,user):
+    if isAllen(ctx.message.author.id):
+        if int(user) in secret_list:
+            secret_list.remove(int(user))
+            f = open("secret.txt","w")
+            for i in secret_list:
+                f.write(str(i)+"\n")
+            f.close()
+            await ctx.send("Successfully removed <@"+str(user)+"> from the secret list.")
+        else:
+            await ctx.send("<@"+str(user)+"> is not in the secret list.")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+
 @bot.command(name='gen', help='Generates a test. Input the name of the test as well as a preset. See `c!presets` for more info.\n`c!gen Example 1`')
 async def gen(ctx, name, pre):
     try:
@@ -666,16 +741,16 @@ async def fetch(ctx, name):
 async def customQ(ctx):
     await ctx.send("Here's the list of question types:```\n1\tAristocrat\t\tD\tDecode\n2\tPatristocrat\t\tE\tEncode\n3\tAffine\t\t\tC\tCrypt\n4\tCaesar\t\t\tL\tLetter 4 Letter\n5\tVigenere\t\tS\tSequence\n6\t2x2 Hill\t\tW \tWords\n7\t3x3 Hill\t\t0\tWord Hint\n8\tXenocrypt\t\t1\tCharacter Hint\n9\tBaconian\t\t2\tNo Hint\n10\tRSA\n11\tMorbit\n12\tPollux```")
 
-@bot.command(name='ays', help='As you should :relieved:')
+@bot.command(name='ays', hidden=True)
 async def ays(ctx):
-    if ctx.message.author.id == 357337245318905856 or ctx.message.author.id == 562760141141966879:
+    if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
         await ctx.send("as you should :relieved:")
     else:
         await ctx.send("You don't have permissions to use this command.")
         
 @bot.command(name='servers', help='Debug tool')
 async def servers(ctx):
-    if ctx.message.author.id == 241029640469217281 or ctx.message.author.id == 357337245318905856:
+    if ctx.message.author.id in admin_list:
         servers = list(bot.guilds)
         print('\n'.join(server.name for server in servers))
         a = ""
@@ -696,6 +771,27 @@ async def presets(ctx):
 
 @bot.command(name='ping', help='Pong!')
 async def ping(ctx):
-     await ctx.send(f'Pong!')
+    await ctx.send('Pong!')
      
+@bot.command(name='washed', hidden=True)
+async def washed(ctx, user):
+    if ctx.message.author.id in secret_list:
+        await ctx.send("You're fucking washed "+str(user)+" :unamused:")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+
+@bot.command(name='s', hidden=True)
+async def s(ctx):
+    if ctx.message.author.id in secret_list:
+        await ctx.send("Sad!")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='fuckyou', hidden=True)
+async def fuckyou(ctx, user):
+    if ctx.message.author.id in secret_list:
+        await ctx.send("Fuck you "+str(user)+" :middle_finger:")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+
 bot.run(TOKEN)
