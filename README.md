@@ -7,6 +7,27 @@ This program pulls quotes from a database of 40000+ quotes. All ciphers for use 
 
 If you would like to request new features or report any bugs, feel free to create an issue; however, chances are I won't get to it.
 
+###Codebuilder Discord Bot:###
+**Invite Link:** https://discord.com/api/oauth2/authorize?client_id=787535889135828994&permissions=125952&scope=bot
+
+###Commands:###
+
+    - `c!about` - About Me
+
+    - `c!ays' - As you should 😌
+
+    - `c!customQ` - Lists possible question types for `c!genCustom`.
+   
+    - `c!fetch \[Name]` - `c!fetch example` - Fetches a test with a given name.
+
+    - `c!gen \[Name] \[Preset]` - `c!gen example 1` - Generates a test with a given preset.
+    
+    - `c!genCustom \[Name] \[Custom Question List]` - `c!gen example "1 2,3 1,8 0" - Generates a test with a list of question types.
+    
+    - `c!presets` - Lists possible presets for `c!gen`.
+    
+    - `c!washed` - Washed
+
 ### Presets ###
 Currently, there are four presets:
 
@@ -84,24 +105,3 @@ Currently, there are four presets:
     - 10 Unhinted Patristocrats
     
 6.  **Custom** - Custom made test.
-
-Codebuilder Discord Bot:
-**Invite Link:** https://discord.com/api/oauth2/authorize?client_id=787535889135828994&permissions=125952&scope=bot
-
-Commands:
-
-    - `c!about` - About Me
-
-    - `c!ays' - As you should 😌
-
-    - `c!customQ` - Lists possible question types for `c!genCustom`.
-   
-    - `c!fetch \[Name]` - `c!fetch example` - Fetches a test with a given name.
-
-    - `c!gen \[Name] \[Preset]` - `c!gen example 1` - Generates a test with a given preset.
-    
-    - `c!genCustom \[Name] \[Custom Question List]` - `c!gen example "1 2,3 1,8 0" - Generates a test with a list of question types.
-    
-    - `c!presets` - Lists possible presets for `c!gen`.
-    
-    - `c!washed` - Washed
