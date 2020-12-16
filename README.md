@@ -7,10 +7,10 @@ This program pulls quotes from a database of 40000+ quotes. All ciphers for use 
 
 If you would like to request new features or report any bugs, feel free to create an issue; however, chances are I won't get to it.
 
-###Codebuilder Discord Bot:###
+### Codebuilder Discord Bot: ###
 **Invite Link:** https://discord.com/api/oauth2/authorize?client_id=787535889135828994&permissions=125952&scope=bot
 
-###Commands:###
+### Commands: ###
 
     - `c!about` - About Me
 
