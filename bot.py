@@ -832,7 +832,7 @@ async def aisb(ctx):
     else:
         await ctx.send("You don't have permissions to use this command.")
         
-@bot.command(name='servers', help='Debug tool', hidden=False)
+@bot.command(name='servers', help='Debug tool', hidden=True)
 async def servers(ctx):
     if ctx.message.author.id in admin_list:
         servers = list(bot.guilds)
