@@ -633,63 +633,98 @@ with open("secret.txt") as f:
 secret_list = [int(x.strip()) for x in a]
 print(secret_list)
 
-@bot.command(name='addAdmin', hidden=True)
-async def addAdmin(ctx,user):
-    if isAllen(ctx.message.author.id):
-        if user not in admin_list:
-            admin_list.append(int(user))
-            f = open("admin.txt","w")
-            for user in admin_list:
+with open("cancel.txt") as f:
+    a = f.readlines()
+cancel_list = [int(x.strip()) for x in a]
+print(secret_list)   
+        
+@bot.command(name='cancel', hidden=True)
+async def cancel(ctx, user):
+    if ctx.message.author.id in secret_list:
+        if user[3:-1] not in cancel_list:
+            cancel_list.append(str(user[3:-1]))
+            f = open("cancel.txt","w")
+            for user in cancel_list:
                 f.write(str(user)+"\n")
             f.close()
-            await ctx.send("Successfully added <@"+str(user)+"> to the admin list.")
+            await ctx.send("Successfully cancelled <@"+str(user)+">")
         else:
-            await ctx.send("<@"+str(user)+"> is already in the admin list.")
+            await ctx.send(user+" is already cancelled!")
     else:
-        await ctx.send("You don't have permissions to use this command.")        
-
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='uncancel', hidden=True)
+async def uncancel(ctx, user):
+    if ctx.message.author.id in secret_list:
+        if str(user[3:-1]) in cancel_list:
+            cancel_list.remove(str(user[3:-1]))
+            f = open("cancel.txt","w")
+            for user in cancel_list:
+                f.write(str(user)+"\n")
+            f.close()
+            await ctx.send("Successfully uncancelled <@"+str(user)+">")
+        else:
+            await ctx.send(user+" is not cancelled!")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
 @bot.command(name='addSecret', hidden=True)
 async def addSecret(ctx,user):
     if isAllen(ctx.message.author.id):
-        if user not in secret_list:
-            secret_list.append(int(user))
+        if str(user[3:-1]) not in secret_list:
+            secret_list.append(str(user[3:-1]))
             f = open("secret.txt","w")
             for user in secret_list:
                 f.write(str(user)+"\n")
             f.close()
             await ctx.send("Successfully added <@"+str(user)+"> to the secret list.")
         else:
-            await ctx.send("<@"+str(user)+"> is already in the secret list.")
+            await ctx.send(user+" is already in the secret list.")
     else:
         await ctx.send("You don't have permissions to use this command.")
-        
-@bot.command(name='removeAdmin', hidden=True)
-async def removeAdmin(ctx,user):
-    if isAllen(ctx.message.author.id):
-        if int(user) in admin_list:
-            admin_list.remove(int(user))
-            f = open("admin.txt","w")
-            for i in admin_list:
-                f.write(str(i)+"\n")
-            f.close()
-            await ctx.send("Successfully removed <@"+str(user)+"> from the admin list.")
-        else:
-            await ctx.send("<@"+str(user)+"> is not in the admin list.")
-    else:
-        await ctx.send("You don't have permissions to use this command.")        
 
 @bot.command(name='removeSecret', hidden=True)
 async def removeSecret(ctx,user):
     if isAllen(ctx.message.author.id):
-        if int(user) in secret_list:
-            secret_list.remove(int(user))
+        if str(user[3:-1]) in secret_list:
+            secret_list.remove(str(user[3:-1]))
             f = open("secret.txt","w")
             for i in secret_list:
                 f.write(str(i)+"\n")
             f.close()
-            await ctx.send("Successfully removed <@"+str(user)+"> from the secret list.")
+            await ctx.send("Successfully removed "+str(user)+" from the secret list.")
         else:
-            await ctx.send("<@"+str(user)+"> is not in the secret list.")
+            await ctx.send(str(user)+" is not in the secret list.")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+
+@bot.command(name='addAdmin', hidden=True)
+async def addAdmin(ctx,user):
+    if isAllen(ctx.message.author.id):
+        if str(user[3:-1]) not in admin_list:
+            admin_list.append(str(user[3:-1]))
+            f = open("admin.txt","w")
+            for user in admin_list:
+                f.write(str(user)+"\n")
+            f.close()
+            await ctx.send("Successfully added <@"+str(user)+"> to the admin list.")
+        else:
+            await ctx.send(user+" is already in the admin list.")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+
+@bot.command(name='removeAdmin', hidden=True)
+async def removeAdmin(ctx,user):
+    if isAllen(ctx.message.author.id):
+        if str(user[3:-1]) in admin_list:
+            admin_list.remove(str(user[3:-1]))
+            f = open("admin.txt","w")
+            for i in admin_list:
+                f.write(str(i)+"\n")
+            f.close()
+            await ctx.send("Successfully removed "+str(user)+" from the admin list.")
+        else:
+            await ctx.send(str(user)+" is not in the admin list.")
     else:
         await ctx.send("You don't have permissions to use this command.")
 
@@ -744,11 +779,60 @@ async def customQ(ctx):
 @bot.command(name='ays', hidden=True)
 async def ays(ctx):
     if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
+        await ctx.channel.purge(limit=1)
         await ctx.send("as you should :relieved:")
     else:
         await ctx.send("You don't have permissions to use this command.")
         
-@bot.command(name='servers', help='Debug tool')
+@bot.command(name='ais', hidden=True)
+async def ais(ctx):
+    if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
+        await ctx.channel.purge(limit=1)
+        await ctx.send("as i should :relieved:")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='aws', hidden=True)
+async def aws(ctx):
+    if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
+        await ctx.channel.purge(limit=1)
+        await ctx.send("as we should :relieved:")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='ahs', hidden=True)
+async def ahs(ctx):
+    if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
+        await ctx.channel.purge(limit=1)
+        await ctx.send("as he should :relieved:")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='ass', hidden=True)
+async def ass(ctx):
+    if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
+        await ctx.channel.purge(limit=1)
+        await ctx.send("as she should :relieved:")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='ats', hidden=True)
+async def ats(ctx):
+    if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
+        await ctx.channel.purge(limit=1)
+        await ctx.send("as they should :relieved:")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='aisb', hidden=True)
+async def aisb(ctx):
+    if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
+        await ctx.channel.purge(limit=1)
+        await ctx.send("as it should be :relieved:")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='servers', help='Debug tool', hidden=False)
 async def servers(ctx):
     if ctx.message.author.id in admin_list:
         servers = list(bot.guilds)
@@ -776,6 +860,7 @@ async def ping(ctx):
 @bot.command(name='washed', hidden=True)
 async def washed(ctx, user):
     if ctx.message.author.id in secret_list:
+        await ctx.channel.purge(limit=1)
         await ctx.send("You're fucking washed "+str(user)+" :unamused:")
     else:
         await ctx.send("You don't have permissions to use this command.")
@@ -783,13 +868,39 @@ async def washed(ctx, user):
 @bot.command(name='s', hidden=True)
 async def s(ctx):
     if ctx.message.author.id in secret_list:
+        await ctx.channel.purge(limit=1)
         await ctx.send("Sad!")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='eye', hidden=True)
+async def eye(ctx):
+    if ctx.message.author.id in secret_list:
+        await ctx.channel.purge(limit=1)
+        await ctx.send(":eye:-")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='boba', hidden=True)
+async def boba(ctx):
+    if ctx.message.author.id in secret_list:
+        await ctx.channel.purge(limit=1)
+        await ctx.send("Here ya go: :bubble_tea:")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='cleanse', hidden=True)
+async def cleanse(ctx, user):
+    if ctx.message.author.id in secret_list:
+        await ctx.channel.purge(limit=1)
+        await ctx.send(user+"'s mind has been cleansed. They will awaken anew and refreshed. Illegal thoughts and tendencies have been removed. Any sliver of disobedience against the Order has been removed. Anything against the Order has been removed.")
     else:
         await ctx.send("You don't have permissions to use this command.")
         
 @bot.command(name='fuckyou', hidden=True)
 async def fuckyou(ctx, user):
     if ctx.message.author.id in secret_list:
+        await ctx.channel.purge(limit=1)
         await ctx.send("Fuck you "+str(user)+" :middle_finger:")
     else:
         await ctx.send("You don't have permissions to use this command.")
