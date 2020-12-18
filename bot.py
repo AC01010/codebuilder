@@ -889,6 +889,14 @@ async def boba(ctx):
     else:
         await ctx.send("You don't have permissions to use this command.")
         
+@bot.command(name='dumbass', hidden=True)
+async def dumbass(ctx, user):
+    if str(ctx.message.author.id) in secret_list:
+        await ctx.channel.purge(limit=1)
+        await ctx.send(user+", you're a fucking dumbass")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
 @bot.command(name='cleanse', hidden=True)
 async def cleanse(ctx, user):
     if str(ctx.message.author.id) in secret_list:
