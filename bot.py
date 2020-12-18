@@ -636,7 +636,7 @@ print(secret_list)
 with open("cancel.txt") as f:
     a = f.readlines()
 cancel_list = [int(x.strip()) for x in a]
-print(secret_list)   
+print(cancel_list)   
         
 @bot.command(name='cancel', hidden=True)
 async def cancel(ctx, user):
