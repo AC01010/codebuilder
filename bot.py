@@ -619,28 +619,28 @@ bot = commands.Bot(command_prefix='c!')
 client = discord.Client()
 
 def isAllen(s):
-    if s==357337245318905856:
+    if s=="357337245318905856":
         return True
     return False
 
 with open("admin.txt") as f:
     a = f.readlines()
-admin_list = [int(x.strip()) for x in a]
+admin_list = [str(x.strip()) for x in a]
 print(admin_list)
 
 with open("secret.txt") as f:
     a = f.readlines()
-secret_list = [int(x.strip()) for x in a]
+secret_list = [str(x.strip()) for x in a]
 print(secret_list)
 
 with open("cancel.txt") as f:
     a = f.readlines()
-cancel_list = [int(x.strip()) for x in a]
+cancel_list = [str(x.strip()) for x in a]
 print(cancel_list)   
         
 @bot.command(name='cancel', hidden=True)
 async def cancel(ctx, user):
-    if ctx.message.author.id in secret_list:
+    if str(ctx.message.author.id) in secret_list:
         if user[3:-1] not in cancel_list:
             cancel_list.append(str(user[3:-1]))
             f = open("cancel.txt","w")
@@ -655,14 +655,14 @@ async def cancel(ctx, user):
         
 @bot.command(name='uncancel', hidden=True)
 async def uncancel(ctx, user):
-    if ctx.message.author.id in secret_list:
+    if str(ctx.message.author.id) in secret_list:
         if str(user[3:-1]) in cancel_list:
             cancel_list.remove(str(user[3:-1]))
             f = open("cancel.txt","w")
             for user in cancel_list:
                 f.write(str(user)+"\n")
             f.close()
-            await ctx.send("Successfully uncancelled <@"+str(user)+">")
+            await ctx.send("Successfully uncancelled "+str(user))
         else:
             await ctx.send(user+" is not cancelled!")
     else:
@@ -670,7 +670,7 @@ async def uncancel(ctx, user):
         
 @bot.command(name='addSecret', hidden=True)
 async def addSecret(ctx,user):
-    if isAllen(ctx.message.author.id):
+    if isAllen(str(ctx.message.author.id)):
         if str(user[3:-1]) not in secret_list:
             secret_list.append(str(user[3:-1]))
             f = open("secret.txt","w")
@@ -685,7 +685,7 @@ async def addSecret(ctx,user):
 
 @bot.command(name='removeSecret', hidden=True)
 async def removeSecret(ctx,user):
-    if isAllen(ctx.message.author.id):
+    if isAllen(str(ctx.message.author.id)):
         if str(user[3:-1]) in secret_list:
             secret_list.remove(str(user[3:-1]))
             f = open("secret.txt","w")
@@ -700,7 +700,7 @@ async def removeSecret(ctx,user):
 
 @bot.command(name='addAdmin', hidden=True)
 async def addAdmin(ctx,user):
-    if isAllen(ctx.message.author.id):
+    if isAllen(str(ctx.message.author.id)):
         if str(user[3:-1]) not in admin_list:
             admin_list.append(str(user[3:-1]))
             f = open("admin.txt","w")
@@ -715,7 +715,7 @@ async def addAdmin(ctx,user):
 
 @bot.command(name='removeAdmin', hidden=True)
 async def removeAdmin(ctx,user):
-    if isAllen(ctx.message.author.id):
+    if isAllen(str(ctx.message.author.id)):
         if str(user[3:-1]) in admin_list:
             admin_list.remove(str(user[3:-1]))
             f = open("admin.txt","w")
@@ -778,7 +778,7 @@ async def customQ(ctx):
 
 @bot.command(name='ays', hidden=True)
 async def ays(ctx):
-    if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
+    if str(ctx.message.author.id) in admin_list or str(ctx.message.author.id) == "562760141141966879":
         await ctx.channel.purge(limit=1)
         await ctx.send("as you should :relieved:")
     else:
@@ -786,7 +786,7 @@ async def ays(ctx):
         
 @bot.command(name='ais', hidden=True)
 async def ais(ctx):
-    if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
+    if str(ctx.message.author.id) in admin_list or str(ctx.message.author.id) == "562760141141966879":
         await ctx.channel.purge(limit=1)
         await ctx.send("as i should :relieved:")
     else:
@@ -794,7 +794,7 @@ async def ais(ctx):
         
 @bot.command(name='aws', hidden=True)
 async def aws(ctx):
-    if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
+    if str(ctx.message.author.id) in admin_list or str(ctx.message.author.id) == "562760141141966879":
         await ctx.channel.purge(limit=1)
         await ctx.send("as we should :relieved:")
     else:
@@ -802,7 +802,7 @@ async def aws(ctx):
         
 @bot.command(name='ahs', hidden=True)
 async def ahs(ctx):
-    if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
+    if str(ctx.message.author.id) in admin_list or str(ctx.message.author.id) == "562760141141966879":
         await ctx.channel.purge(limit=1)
         await ctx.send("as he should :relieved:")
     else:
@@ -810,7 +810,7 @@ async def ahs(ctx):
         
 @bot.command(name='ass', hidden=True)
 async def ass(ctx):
-    if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
+    if str(ctx.message.author.id) in admin_list or str(ctx.message.author.id) == "562760141141966879":
         await ctx.channel.purge(limit=1)
         await ctx.send("as she should :relieved:")
     else:
@@ -818,7 +818,7 @@ async def ass(ctx):
         
 @bot.command(name='ats', hidden=True)
 async def ats(ctx):
-    if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
+    if str(ctx.message.author.id) in admin_list or str(ctx.message.author.id) == "562760141141966879":
         await ctx.channel.purge(limit=1)
         await ctx.send("as they should :relieved:")
     else:
@@ -826,7 +826,7 @@ async def ats(ctx):
         
 @bot.command(name='aisb', hidden=True)
 async def aisb(ctx):
-    if ctx.message.author.id in admin_list or ctx.message.author.id == 562760141141966879:
+    if str(ctx.message.author.id) in admin_list or str(ctx.message.author.id) == "562760141141966879":
         await ctx.channel.purge(limit=1)
         await ctx.send("as it should be :relieved:")
     else:
@@ -834,7 +834,7 @@ async def aisb(ctx):
         
 @bot.command(name='servers', help='Debug tool', hidden=True)
 async def servers(ctx):
-    if ctx.message.author.id in admin_list:
+    if str(ctx.message.author.id) in admin_list:
         servers = list(bot.guilds)
         print('\n'.join(server.name for server in servers))
         a = ""
@@ -859,7 +859,7 @@ async def ping(ctx):
      
 @bot.command(name='washed', hidden=True)
 async def washed(ctx, user):
-    if ctx.message.author.id in secret_list:
+    if str(ctx.message.author.id) in secret_list:
         await ctx.channel.purge(limit=1)
         await ctx.send("You're fucking washed "+str(user)+" :unamused:")
     else:
@@ -867,7 +867,7 @@ async def washed(ctx, user):
 
 @bot.command(name='s', hidden=True)
 async def s(ctx):
-    if ctx.message.author.id in secret_list:
+    if str(ctx.message.author.id) in secret_list:
         await ctx.channel.purge(limit=1)
         await ctx.send("Sad!")
     else:
@@ -875,7 +875,7 @@ async def s(ctx):
         
 @bot.command(name='eye', hidden=True)
 async def eye(ctx):
-    if ctx.message.author.id in secret_list:
+    if str(ctx.message.author.id) in secret_list:
         await ctx.channel.purge(limit=1)
         await ctx.send(":eye:-")
     else:
@@ -883,7 +883,7 @@ async def eye(ctx):
         
 @bot.command(name='boba', hidden=True)
 async def boba(ctx):
-    if ctx.message.author.id in secret_list:
+    if str(ctx.message.author.id) in secret_list:
         await ctx.channel.purge(limit=1)
         await ctx.send("Here ya go: :bubble_tea:")
     else:
@@ -891,7 +891,7 @@ async def boba(ctx):
         
 @bot.command(name='cleanse', hidden=True)
 async def cleanse(ctx, user):
-    if ctx.message.author.id in secret_list:
+    if str(ctx.message.author.id) in secret_list:
         await ctx.channel.purge(limit=1)
         await ctx.send(user+"'s mind has been cleansed. They will awaken anew and refreshed. Illegal thoughts and tendencies have been removed. Any sliver of disobedience against the Order has been removed. Anything against the Order has been removed.")
     else:
@@ -899,7 +899,7 @@ async def cleanse(ctx, user):
         
 @bot.command(name='fuckyou', hidden=True)
 async def fuckyou(ctx, user):
-    if ctx.message.author.id in secret_list:
+    if str(ctx.message.author.id) in secret_list:
         await ctx.channel.purge(limit=1)
         await ctx.send("Fuck you "+str(user)+" :middle_finger:")
     else:
