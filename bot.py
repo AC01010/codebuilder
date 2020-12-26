@@ -614,7 +614,7 @@ def genTest(na, preset):
 
 TOKEN = open("token",'r').read()
 
-bot = commands.Bot(command_prefix='t!')
+bot = commands.Bot(command_prefix='c!')
 client = discord.Client()
 
 def isAllen(s):
