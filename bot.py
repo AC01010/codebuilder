@@ -416,10 +416,9 @@ def genRandBacon(num, quote, mode):
     return x
 
 
-
 def RSA(num, enc):
-    p = sympy.randprime(200,1000)
-    q = sympy.randprime(200,1000)
+    p = sympy.randprime(200,500)
+    q = sympy.randprime(200,500)
     n = p*q
     phi = (p-1)*(q-1)
     e = sympy.randprime(0,n)
@@ -615,7 +614,7 @@ def genTest(na, preset):
 
 TOKEN = open("token",'r').read()
 
-bot = commands.Bot(command_prefix='c!')
+bot = commands.Bot(command_prefix='t!')
 client = discord.Client()
 
 def isAllen(s):
@@ -851,7 +850,7 @@ async def about(ctx):
 
 @bot.command(name='presets', help='Lists presets for `c!gen`.')
 async def presets(ctx):
-    await ctx.send("```1\tAll Types - 29 Questions + Timed - Includes one of each cipher type.\n2\tNational Level Test - 30 Questions + Timed - National Level test, with random modes of questions.\n3\tRegional Level Test - 19 Questions + Timed - Regional level test, with random modes of questions.\n4\tAristo Spam - 10 Questions + Timed - 10 Unhinted Aristocrats.\n5\tPatristo Spam - 10 Questions + Timed - 10 Unhinted Patristocrats.```")
+    await ctx.send("```1\tAll Types - 29 Questions + Timed - Includes one of each cipher type.\n2\tNational Level Test - 30 Questions + Timed - National Level test, with random modes of questions.\n3\tRegional Level Test - 19 Questions + Timed - Regional level test, with random modes of questions.\n4\tAristo Spam - 20 Questions + Timed - 20 Unhinted Aristocrats.\n5\tPatristo Spam - 10 Questions + Timed - 10 Unhinted Patristocrats.```")
 
 @bot.command(name='ping', help='Pong!')
 async def ping(ctx):
@@ -912,5 +911,45 @@ async def fuckyou(ctx, user):
         await ctx.send("Fuck you "+str(user)+" :middle_finger:")
     else:
         await ctx.send("You don't have permissions to use this command.")
+
+@bot.command(name='clown', hidden=True)
+async def clown(ctx):
+    if str(ctx.message.author.id) in secret_list:
+        await ctx.channel.purge(limit=1)
+        await ctx.send(":clown:")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+
+@bot.command(name='chickenfy', hidden=True)
+async def chickenfy(ctx, user):
+    if str(ctx.message.author.id) in secret_list:
+        await ctx.channel.purge(limit=1)
+        await ctx.send(str(user) +" is now a chicken :rooster:")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='wtk', hidden=True)
+async def wtk(ctx):
+    if str(ctx.message.author.id) in secret_list:
+        await ctx.channel.purge(limit=1)
+        await ctx.send("<:wtk:792271296258899979>")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='klebbread', hidden=True)
+async def klebbread(ctx):
+    if str(ctx.message.author.id) in secret_list:
+        await ctx.channel.purge(limit=1)
+        await ctx.send("Get the <:klebbread:767816138897096718>")
+    else:
+        await ctx.send("You don't have permissions to use this command.")
+        
+@bot.command(name='say', hidden=True)
+async def say(ctx, message):
+    if isAllen(str(ctx.message.author.id)):
+        await ctx.channel.purge(limit=1)
+        await ctx.send(message)
+    else:
+        await ctx.send("Hey, you're not Allen!")
 
 bot.run(TOKEN)
