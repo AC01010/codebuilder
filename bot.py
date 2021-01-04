@@ -974,16 +974,19 @@ async def test(ctx, message):
         
 @bot.command(name='f', hidden=True)
 async def f(ctx):
-    await ctx.channel.purge(limit=100)
+    if str(ctx.message.author.id) in secret_list:
+        await ctx.channel.purge(limit=100)
         
 @bot.command(name='f2', hidden=True)
 async def f2(ctx):
-    for i in range(100):
-        await ctx.channel.purge(limit=100)
+    if str(ctx.message.author.id) in secret_list:
+        for i in range(100):
+            await ctx.channel.purge(limit=100)
         
 @bot.command(name='f3', hidden=True)
 async def f3(ctx):
-    for i in range(1000):
-        await ctx.send("<a:fuck:795733874377883700>")
+    if str(ctx.message.author.id) in secret_list:
+        for i in range(1000):
+            await ctx.send("<a:fuck:795733874377883700>")
         
 bot.run(TOKEN)
