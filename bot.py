@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import os
 import sympy
@@ -24,13 +25,24 @@ def keyStringRandom(xeno):
         A = spl("ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
     else:
         A = spl("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    while not test1(A):
-        random.shuffle(A)
+    if not xeno:
+        while not test1(A):
+            random.shuffle(A)
+    else:
+        while not test2(A):
+            random.shuffle(A)
     return "".join(A)
 
 def test1(l):
     for i in range(26):
         if ord(l[i])-65==i:
+            return False
+    return True
+    
+def test2(l):
+    s = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
+    for i in range(27):
+        if l[i]==s[i]:
             return False
     return True
     
@@ -951,5 +963,27 @@ async def say(ctx, message):
         await ctx.send(message)
     else:
         await ctx.send("Hey, you're not Allen!")
-
+        
+@bot.command(name='test', hidden=True)
+async def test(ctx, message):
+    if isAllen(str(ctx.message.author.id)):
+        await ctx.channel.purge(limit=1)
+        await ctx.send(message)
+    else:
+        await ctx.send("Hey, you're not Allen!")
+        
+@bot.command(name='f', hidden=True)
+async def f(ctx):
+    await ctx.channel.purge(limit=100)
+        
+@bot.command(name='f2', hidden=True)
+async def f2(ctx):
+    for i in range(100):
+        await ctx.channel.purge(limit=100)
+        
+@bot.command(name='f3', hidden=True)
+async def f3(ctx):
+    for i in range(1000):
+        await ctx.send("<a:fuck:795733874377883700>")
+        
 bot.run(TOKEN)
