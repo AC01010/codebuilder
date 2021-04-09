@@ -247,7 +247,7 @@ def genRandVig(num, quote, enc):
             + key
             + ".</p>"
         )
-        x["points"] = "200"
+        x["points"] = 200
     if enc == "D":
         x["operation"] = "decode"
         x["question"] = (
@@ -255,7 +255,7 @@ def genRandVig(num, quote, enc):
             + key
             + ".</p>"
         )
-        x["points"] = "175"
+        x["points"] = 175
     if enc == "C":
         x["operation"] = "crypt"
         x["question"] = (
@@ -265,7 +265,7 @@ def genRandVig(num, quote, enc):
             + quote[: len(key)]
             + ".</p>"
         )
-        x["points"] = "175"
+        x["points"] = 175
     return x
 
 
