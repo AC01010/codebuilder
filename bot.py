@@ -14,8 +14,7 @@ def header(n, name):
         "timed": 0,
         "count": n,
         "questions": list(range(1, n + 1)),
-        "title": name
-        + "​⁠⁠​​⁠​​​⁠⁠​​​​⁠​⁠⁠​⁠⁠​⁠​⁠⁠​⁠⁠⁠​​​⁠​⁠⁠⁠​​​⁠​⁠⁠⁠​​​⁠​⁠⁠⁠​​​⁠​​​​​​⁠⁠⁠⁠​​⁠​⁠⁠​⁠⁠⁠⁠​⁠⁠⁠​⁠​⁠​​⁠​​​​​​⁠⁠⁠​​⁠​​⁠⁠​​⁠​⁠​⁠⁠​​​​⁠​⁠⁠​⁠⁠​​​⁠⁠​⁠⁠​​​⁠⁠⁠⁠​​⁠​​⁠​​​​​​⁠⁠⁠​⁠​⁠​⁠⁠⁠​​⁠⁠​⁠⁠​​⁠​⁠​⁠⁠​​⁠​​​​⁠​​​​​​⁠⁠⁠​⁠​​​⁠⁠​⁠​​​​⁠⁠​⁠​​⁠​⁠⁠⁠​​⁠⁠​​⁠​​​​​​⁠⁠⁠​⁠⁠⁠​⁠⁠​⁠​​⁠​⁠⁠⁠​⁠​​​⁠⁠​⁠​​​​⁠⁠​⁠⁠⁠⁠​⁠⁠⁠​⁠​⁠​⁠⁠⁠​⁠​​​​⁠​​​​​​⁠⁠​⁠⁠​⁠​⁠⁠⁠⁠​​⁠​​⁠​​​​​​⁠⁠⁠​​​​​⁠⁠​​⁠​⁠​⁠⁠⁠​​⁠​​⁠⁠​⁠⁠​⁠​⁠⁠​⁠​​⁠​⁠⁠⁠​​⁠⁠​⁠⁠⁠​​⁠⁠​⁠⁠​⁠​​⁠​⁠⁠​⁠⁠⁠⁠​⁠⁠​⁠⁠⁠​​​⁠​​​​​​⁠⁠⁠​​⁠⁠​⁠⁠​⁠⁠​⁠​⁠⁠​⁠​​​​​​​⁠⁠​⁠​​​​⁠​⁠​​​​​⁠⁠​⁠​​​​⁠​⁠​​⁠⁠​​⁠​​​⁠⁠​⁠⁠⁠⁠​⁠⁠​⁠⁠⁠​​​⁠​​⁠⁠⁠​⁠⁠⁠​⁠​​​​⁠​​​​​​⁠⁠​⁠⁠​⁠​⁠⁠​​⁠​⁠​⁠⁠⁠​​⁠⁠​⁠⁠⁠​​⁠⁠​​⁠​​​​​​⁠⁠⁠​⁠⁠⁠​⁠⁠​⁠​​⁠​⁠⁠⁠​⁠​​​⁠⁠​⁠​​​​​⁠​​​​​​⁠⁠⁠​⁠​​​⁠⁠​⁠​​​​⁠⁠​​⁠​⁠​​⁠​​​​​​⁠⁠​​​⁠⁠​⁠⁠​⁠​​⁠​⁠⁠​​​​⁠​​⁠​​​​​​​⁠⁠⁠⁠⁠​​​⁠⁠⁠​⁠​​​⁠​⁠​​​",
+        "title": name + "",
         "useCustomHeader": False,
         "customHeader": "",
         "testtype": "cstate",
@@ -268,6 +267,45 @@ def genRandVig(num, quote, enc):
         x["points"] = 175
     return x
 
+def genRandPorta(num, quote, enc):
+    quote = genQuoteLength(50, 70)
+    key = getRandWord(5, 8)
+    x = {
+        "cipherType": "porta",
+        "keyword": key,
+        "cipherString": quote,
+        "findString": "",
+        "blocksize": len(key),
+        "curlang": "en",
+        "editEntry": str(num),
+    }
+    if enc == "E":
+        x["operation"] = "encode"
+        x["question"] = (
+            "<p>Encode this sentence with the Porta cipher using the keyword "
+            + key
+            + ".</p>"
+        )
+        x["points"] = "120"
+    if enc == "D":
+        x["operation"] = "decode"
+        x["question"] = (
+            "<p>Decode this sentence with the Porta cipher using the keyword "
+            + key
+            + ".</p>"
+        )
+        x["points"] = "100"
+    if enc == "C":
+        x["operation"] = "crypt"
+        x["question"] = (
+            "<p>Decode this sentence with the Porta cipher. The first "
+            + str(len(key))
+            + " characters of the sentence is "
+            + quote[: len(key)]
+            + ".</p>"
+        )
+        x["points"] = "175"
+    return x
 
 def genRand2x2Hill(num, quote, enc):
     quote = quote.split(" ")
@@ -624,6 +662,34 @@ def RSA(num, enc):
         )
     return x
 
+def genRandRailFence(num, quote, rails):
+    if (rails[0] < '2' or rails[0] > '6') and rails != "R":
+        return None
+    quote = genQuoteLength(75, 100)
+    r = 0
+    p = 0
+    if rails == "R":
+        r = random.randint(2, 6)
+        p = 150
+    else:
+        r = int(rails)
+        p = 100 + (r - 2) * 10
+    x = {
+        "cipherString": quote,
+        "cipherType": "railfence",
+        "rails": r,
+        "isRailRange": True,
+        "replacement": {},
+        "curlang": "en",
+        "points": p,
+        "question": f"<p>A quote has been encoded using the Rail Fence Cipher for you to decode. You are told that {rails} rails were used to encode it.</p>",
+        "editEntry": str(num),
+        "specialbonus": False
+    }
+    if rails == "R":
+        x["question"] = "<p>A quote has been encoded using the Rail Fence Cipher for you to decode. </p>"
+    return x
+        
 
 def getBaconWords():
     while 1:
@@ -644,10 +710,12 @@ def getRandWord(min, max):
 
 
 def genQuotes(n):
-    quotes = open("quotes.txt", "r")
-    l = []
-    for i in range(40569):
-        l.append(quotes.readline().strip())
+    # quotes = open("quotes.txt", "r")
+    # l = []
+    # for i in range(40569):
+    #     l.append(quotes.readline().strip())
+    l = open("quotes.txt", "r", encoding="utf-8").read().split('\n')
+
     random.shuffle(l)
     count = 0
     loc = 0
@@ -661,10 +729,11 @@ def genQuotes(n):
 
 
 def genQuoteLength(min, max):
-    quotes = open("quotes.txt", "r")
-    l = []
-    for i in range(40569):
-        l.append(quotes.readline().strip())
+    # quotes = open("quotes.txt", "r")
+    # l = []
+    # for i in range(40569):
+    #     l.append(quotes.readline().strip())
+    l = open("quotes.txt", "r", encoding="utf-8").read().split('\n')
     random.shuffle(l)
     loc = 0
     while 1:
@@ -674,9 +743,9 @@ def genQuoteLength(min, max):
 
 
 def genSpanishQuote(min, max):
-    json_file = open("spanish.json", "r")
-    l = []
+    json_file = open("spanish.json", "r", encoding="mbcs")
     data = json.load(json_file)
+    l = []
     for p in data["quotes"]:
         l.append(p["Cita"])
     random.shuffle(l)
@@ -708,7 +777,7 @@ def get3x3Key():
     return f.readline().strip().lower()
 
 
-def genTest(na, preset):
+def  genTest(na, preset):
     # na = input("Test Name: ")
     # preset = input("Would you like to use a preset? 1 = All types, 2 = National level test, 3 = Regional level test, 4 = Aristo Spam, 5 = Patristo Spam, 6 = No: ")
     l = []
@@ -737,14 +806,18 @@ def genTest(na, preset):
             "9 L",
             "9 S",
             "9 W",
-            "10 D",
-            "10 E",
             "11 D",
             "11 C",
             "12 D",
             "12 C",
+            "13 E",
+            "13 D",
+            "13 C",
+            "14 2",
+            "14 4",
+            "14 R"
         ]
-        n = 29
+        n = len(l)
     elif preset == "2":
         aff = ["3 D", "3 E", "3 C"]
         vig = ["5 D", "5 E", "5 C"]
@@ -856,6 +929,10 @@ def genTest(na, preset):
             test["CIPHER." + str(i + 1)] = genRandMorbit(i, q[i], question[1])
         if int(question[0]) == 12:
             test["CIPHER." + str(i + 1)] = genRandPollux(i, q[i], question[1])
+        if int(question[0]) == 13:
+            test["CIPHER." + str(i + 1)] = genRandPorta(i, q[i], question[1])
+        if int(question[0]) == 14:
+            test["CIPHER." + str(i + 1)] = genRandRailFence(i, q[i], question[1])
     file = open("CodeTests/" + na + ".json", "w")
     file.write(json.dumps(test))
     file.close()
@@ -1051,7 +1128,7 @@ async def fetch(ctx, name):
 @bot.command(name="customQ", help="Lists question types for `c!genCustom`.")
 async def customQ(ctx):
     await ctx.send(
-        "Here's the list of question types:```\n1\tAristocrat\t\tD\tDecode\n2\tPatristocrat\t\tE\tEncode\n3\tAffine\t\t\tC\tCrypt\n4\tCaesar\t\t\tL\tLetter 4 Letter\n5\tVigenere\t\tS\tSequence\n6\t2x2 Hill\t\tW \tWords\n7\t3x3 Hill\t\t0\tWord Hint\n8\tXenocrypt\t\t1\tCharacter Hint\n9\tBaconian\t\t2\tNo Hint\n10\tRSA\n11\tMorbit\n12\tPollux```"
+        "Here's the list of question types:```\n1\tAristocrat\t\tD\tDecode\n2\tPatristocrat\t\tE\tEncode\n3\tAffine\t\t\tC\tCrypt\n4\tCaesar\t\t\tL\tLetter 4 Letter\n5\tVigenere\t\tS\tSequence\n6\t2x2 Hill\t\tW \tWords\n7\t3x3 Hill\t\t0\tWord Hint\n8\tXenocrypt\t\t1\tCharacter Hint\n9\tBaconian\t\t2\tNo Hint\n10\tRSA\t\t\tR\tRail Range\n11\tMorbit\n12\tPollux\n13\tPorta\n14\tRail Fence```"
     )
 
 
