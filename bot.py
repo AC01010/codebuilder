@@ -825,6 +825,8 @@ def  genTest(na, preset):
         hill3 = ["7 D", "7 E"]
         bac = ["9 L", "9 S", "9 W"]
         mor = ["11 D", "11 C", "12 D", "12 C"]
+        porta = ["13 E", "13 D", "13 C"]
+        random.shuffle(porta)
         random.shuffle(aff)
         random.shuffle(vig)
         random.shuffle(hill2)
@@ -855,18 +857,22 @@ def  genTest(na, preset):
             hill2[1],
             hill3[0],
             "8 1",
+            "8 1",
             bac[0],
             bac[1],
-            "10 D",
-            "10 E",
             mor[0],
             mor[1],
             mor[2],
+            porta[0],
+            "14 " + str(random.randint(5, 6)),
+            "14 R"
         ]
-        n = 30
+        n = len(l)
     elif preset == "3":
         enc = ["3 E", "4 E", "5 E", "6 E"]
         bac = ["9 L", "9 S", "9 W"]
+        porta = ["13 E", "13 D"]
+        random.shuffle(porta)
         random.shuffle(enc)
         random.shuffle(bac)
         l = [
@@ -889,8 +895,11 @@ def  genTest(na, preset):
             bac[1],
             "11 D",
             "12 D",
+            porta[0],
+            "14 " + str(random.randint(2, 6)),
+            "14 R"
         ]
-        n = 19
+        n = len(l)
     elif preset == "4":
         l = ["1 2"] * 20
         n = 20
@@ -1244,7 +1253,7 @@ async def about(ctx):
 @bot.command(name="presets", help="Lists presets for `c!gen`.")
 async def presets(ctx):
     await ctx.send(
-        "```1\tAll Types - 29 Questions + Timed - Includes one of each cipher type.\n2\tNational Level Test - 30 Questions + Timed - National Level test, with random modes of questions.\n3\tRegional Level Test - 19 Questions + Timed - Regional level test, with random modes of questions.\n4\tAristo Spam - 20 Questions + Timed - 20 Unhinted Aristocrats.\n5\tPatristo Spam - 10 Questions + Timed - 10 Unhinted Patristocrats.```"
+        "```1\tAll Types - 33 Questions + Timed - Includes one of each cipher type.\n2\tNational Level Test - 32 Questions + Timed - National Level test, with random modes of questions.\n3\tRegional Level Test - 22 Questions + Timed - Regional level test, with random modes of questions.\n4\tAristo Spam - 20 Questions + Timed - 20 Unhinted Aristocrats.\n5\tPatristo Spam - 10 Questions + Timed - 10 Unhinted Patristocrats.```"
     )
 
 

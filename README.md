@@ -33,7 +33,7 @@ If you would like to request new features or report any bugs, feel free to creat
 ### Presets ###
 Currently, there are four presets:
 
-1.  **All Types** - 29 Questions + Timed - Includes one of each cipher type.
+1.  **All Types** - 33 Questions + Timed - Includes one of each cipher type.
     - 1 Timed Question
     - 1 Unhinted Aristocrat
     - 1 Character-Hinted Aristocrat
@@ -58,14 +58,18 @@ Currently, there are four presets:
     - 1 Bacon Letter for Letter
     - 1 Bacon Sequential
     - 1 Bacon Words
-    - 1 RSA Euclid
-    - 1 RSA Exponentiation
     - 1 Morbit Decrypt
     - 1 Morbit Cryptanalysis
     - 1 Pollux Decrypt
     - 1 Pollux Cryptanalysis
+    - 1 Porta Encrypt
+    - 1 Porta Decrypt
+    - 1 Porta Cryptanalysis
+    - 1 Rail Fence w/ 2 Rails
+    - 1 Rail Fence w/ 4 Rails
+    - 1 Rail Fence w/ Range
    
-2.  **National Level Test** - 30 Questions + Timed - National level test, with random modes of questions.
+2.  **National Level Test** - 32 Questions + Timed - National level test, with random modes of questions.
     - 1 Timed Question
     - 10 Unhinted Aristocrats
     - 1 Unhinted Patristocrat
@@ -76,12 +80,14 @@ Currently, there are four presets:
     - 1 Caesar Encode
     - 2 Vigenere
     - 3 Hill
-    - 1 Xenocrypt
+    - 2 Xenocrypt
     - 2 Bacon
-    - 2 RSA
     - 3 Morse
+    - 1 Porta
+    - 1 Rail Fence w/ >= 5 rails
+    - 1 Rail Fence w/ Range
 
-3.  **Regional Level Test** - 19 Questions + Timed - Regional level test, with random modes of questions.
+3.  **Regional Level Test** - 22 Questions + Timed - Regional level test, with random modes of questions.
     - 1 Timed Question
     - 4 Unhinted Aristocrats
     - 1 Character-Hinted Aristocrat
@@ -97,6 +103,9 @@ Currently, there are four presets:
     - 2 Bacon
     - 1 Morbit Decrypt
     - 1 Pollux Decrypt
+    - 1 Porta
+    - 1 Rail Fence w/ >= 5 fails
+    - 1 Rail Fence w/ Range
     
 4.  **Aristo Spam** - 10 Questions + Timed - 10 Unhinted Aristocrats.
     - 1 Timed Question
